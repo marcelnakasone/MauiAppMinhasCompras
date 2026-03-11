@@ -5,7 +5,7 @@ using SQLite;
 
 namespace MauiAppMinhasCompras.Models
 {
-    public class Produto 
+    public class Produto // Criação da classe Produto 
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -13,7 +13,7 @@ namespace MauiAppMinhasCompras.Models
         public double Quantidade { get; set; }
         public double Preco { get; set; }
 
-
+        public double Total { get => Quantidade * Preco; } // Propriedade calculada para obter o total do produto
 
     }
 }
