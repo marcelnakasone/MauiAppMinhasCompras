@@ -18,6 +18,7 @@ public partial class ListaProduto : ContentPage
     {
         try
         {
+            lista.Clear(); // Limpa a coleção antes de carregar os dados
             List<Produto> tmp = await App.Db.GetAll();
             tmp.ForEach(i => lista.Add(i)); // Adiciona os produtos da lista temporária à coleção observável
         
