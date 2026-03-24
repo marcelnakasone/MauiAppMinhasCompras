@@ -12,8 +12,8 @@ public partial class NovoProduto : ContentPage
 
     private async void ToolbarItem_Clicked(object sender, EventArgs e)
     {
-		try
-		{
+        try // Tenta criar um novo produto e inserir no banco de dados, se der erro exibe a mensagem
+        {
 			Produto p = new Produto
 			{
 				Descricao = txt_descricao.Text,
