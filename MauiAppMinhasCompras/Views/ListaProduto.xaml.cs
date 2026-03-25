@@ -6,12 +6,12 @@ namespace MauiAppMinhasCompras.Views;
 
 public partial class ListaProduto : ContentPage
 {
-	ObservableCollection<Produto> lista = new ObservableCollection<Produto>();
-	public ListaProduto() //Construtor
-	{
-		InitializeComponent();
+    ObservableCollection<Produto> lista = new ObservableCollection<Produto>();
+    public ListaProduto() //Construtor
+    {
+        InitializeComponent();
 
-		lst_produtos.ItemsSource = lista; // Atribui a coleção de produtos à ListView
+        lst_produtos.ItemsSource = lista; // Atribui a coleção de produtos à ListView
     }
 
     protected async override void OnAppearing()
@@ -21,24 +21,24 @@ public partial class ListaProduto : ContentPage
             lista.Clear(); // Limpa a coleção antes de carregar os dados
             List<Produto> tmp = await App.Db.GetAll();
             tmp.ForEach(i => lista.Add(i)); // Adiciona os produtos da lista temporária à coleção observável
-        
+
         }
         catch (Exception ex)
         {
             await DisplayAlertAsync("Ops", ex.Message, "OK");
         }
-    }   
+    }
 
     private async void ToolbarItem_Clicked(object sender, EventArgs e)
     {
-		try
-		{
-			await Navigation.PushAsync(new Views.NovoProduto());
-		}
-		catch (Exception ex)
-		{
+        try
+        {
+            await Navigation.PushAsync(new Views.NovoProduto());
+        }
+        catch (Exception ex)
+        {
             await DisplayAlertAsync("Ops", ex.Message, "OK");
-			
+
         }
     }
 
@@ -135,4 +135,42 @@ public partial class ListaProduto : ContentPage
             lst_produtos.IsRefreshing = false;
         }
     }
+      private async void ToolbarItem_Clicked_2(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new RelatorioCategoria());
+    } 
+    private async void ToolbarItem_Clicked_3(object sender, EventArgs e)
+    {
+        try
+        {
+            string categoria = txt_categoria_filtro.Text;
+
+            lst_produtos.IsRefreshing = true;
+
+            lista.Clear();
+
+            if (string.IsNullOrWhiteSpace(categoria))
+            {
+                var todos = await App.Db.GetAll();
+                todos.ForEach(i => lista.Add(i));
+            }
+            else
+            {
+               
+                var filtrados = await App.Db.GetByCategoria("%" + categoria + "%");
+                filtrados.ForEach(i => lista.Add(i));
+            }
+            txt_categoria_filtro.Text = "";
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Ops", ex.Message, "OK");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
+        }
+    }
 }
+
+

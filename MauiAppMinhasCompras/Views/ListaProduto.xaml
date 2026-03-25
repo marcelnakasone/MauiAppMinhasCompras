@@ -7,7 +7,8 @@
         <!--/ Adiciona itens à barra de ferramentas da página-->
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1"/>
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked"/>
-
+        <ToolbarItem Text="Relatorio" Clicked="ToolbarItem_Clicked_2"/>
+        <ToolbarItem Text="Filtrar" Clicked="ToolbarItem_Clicked_3"/>
     </ContentPage.ToolbarItems>
 
     <StackLayout>
@@ -15,6 +16,10 @@
                    Margin="-15, 0, 0, 0"
                    Placeholder="Busca de Produtos" 
                    TextChanged="txt_search_TextChanged"/>
+
+        <Entry x:Name="txt_categoria_filtro" Placeholder="Filtrar por categoria"/>
+        
+
         <ListView x:Name="lst_produtos" 
                   IsPullToRefreshEnabled="True" 
                   Refreshing="lst_produtos_Refreshing"
@@ -28,7 +33,7 @@
                     <Label Grid.Column="4" Text="Total" />
                 </Grid>
             </ListView.Header>
-            <ListView.ItemTemplate> 
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.ContextActions>
